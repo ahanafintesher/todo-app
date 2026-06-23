@@ -142,7 +142,7 @@ export function UpdateModal({ task }) {
                 <Button
                   type="submit"
                   form="update-form"
-                  className="rounded-xl bg-green-600 text-white hover:bg-green-700"
+                  className="rounded-xl bg-blue-400 text-white hover:bg-green-700"
                 >
                   Update
                 </Button>
