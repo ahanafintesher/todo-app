@@ -27,7 +27,7 @@ const AddTasksPage = () => {
 
       console.log(taskData);
 
-      const toastId = toast.loading("Adding facility...");
+      const toastId = toast.loading("Adding task...");
 
       const res = await fetch(
         "http://localhost:5000/api/tasks",
