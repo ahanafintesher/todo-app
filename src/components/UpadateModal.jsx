@@ -79,7 +79,7 @@ export function UpdateModal({ task }) {
                 </div>
                 <div>
                   <Modal.Heading className="text-2xl font-bold">
-                    Edit Item
+                    Edit Status
                   </Modal.Heading>
                   <p className="text-sm text-default-500 mt-1">
                     Update the status.
