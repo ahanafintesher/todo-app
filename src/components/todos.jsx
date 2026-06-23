@@ -45,7 +45,7 @@ export default function Todo() {
           ToDo App
         </h1>
 
-        <Link href="/add-facilities">
+        <Link href="/add-task">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2 rounded-md text-xs sm:text-sm font-medium transition whitespace-nowrap">
             + Add New
           </button>

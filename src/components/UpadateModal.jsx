@@ -1,71 +1,62 @@
 "use client";
 
+import { useState } from "react";
 import { Pencil } from "@gravity-ui/icons";
 import toast from "react-hot-toast";
-import {
-  Button,
-  Select,
-  FieldError,
-  Input,
-  Label,
-  ListBox,
-  Modal,
-  Surface,
-  TextField,
-  TextArea,
-} from "@heroui/react";
+import { Button, Select, Label, ListBox, Modal, Surface } from "@heroui/react";
 
-// Define the 3 status options
-const statuses = ["To Do", "In Progress", "Done"];
+const statuses = [
+  { value: "To Do", label: "To Do" },
+  { value: "In Progress", label: "In Progress" },
+  { value: "Done", label: "Done" },
+];
 
-// Changed prop name from 'facility' to 'item' (or 'task') for better context
-export function UpdateModal({ tasks }) {
-  const { status, _id } = tasks || {};
+export function UpdateModal({ task }) {
+  const { _id } = task || {};
+
+  const [selectedStatus, setSelectedStatus] = useState(
+    () => task?.status || "",
+  );
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    
-    // Extract ONLY the 3 required fields
-    const dataToSend = {
-      
-      status: formData.get("status"),
-    };
-
-    
-
-   try {
-  // fetch রিজলভ হওয়ার পর res.ok চেক করার জন্য .then() ব্যবহার করা হয়েছে
-  const promise = fetch(`http://localhost:5000/api/tasks/${_id}`, {
-    method: "PATCH",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(dataToSend),
-  }).then(async (res) => {
-    if (!res.ok) {
-      // সার্ভার এরর (4xx, 5xx) হলে থ্রো করবে, যাতে toast.promise এটি ধরতে পারে
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.message || "Failed to update");
+    if (!_id) {
+      toast.error("Task ID is missing!");
+      return;
     }
-    return res;
-  });
 
-  // toast.promise নিজেই সাকসেস বা এরর মেসেজ দেখাবে
-  const res = await toast.promise(promise, {
-    loading: "Updating...",
-    success: "Updated successfully!",
-    error: (err) => err.message || "Failed to update", // ডাইনামিক এরর মেসেজ দেখাবে
-  });
+    const dataToSend = { status: selectedStatus };
+    console.log(dataToSend);
 
-  const data = await res.json();
-  console.log(data);
-  
-} catch (error) {
-  console.error("Update failed:", error);
-  // এখানে আর toast.error দেওয়ার দরকার নেই, কারণ toast.promise ইতিমধ্যে ইউজারকে এরর মেসেজ দেখিয়েছে।
-}
+    try {
+      const promise = fetch(`http://localhost:5000/api/tasks/${_id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          throw new Error(errorData.message || "Failed to update");
+        }
+        return res;
+      });
+
+      const res = await toast.promise(promise, {
+        loading: "Updating...",
+        success: "Updated successfully!",
+        error: (err) => err.message || "Failed to update",
+      });
+
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+  };
+
   return (
     <Modal>
       <Button
@@ -78,7 +69,6 @@ export function UpdateModal({ tasks }) {
 
       <Modal.Backdrop className="backdrop-blur-sm bg-black/40">
         <Modal.Container placement="center">
-          {/* Reduced max-width since the form is much smaller now */}
           <Modal.Dialog className="w-full max-w-2xl rounded-3xl overflow-hidden border border-default-200 bg-background shadow-2xl">
             <Modal.CloseTrigger />
 
@@ -92,7 +82,7 @@ export function UpdateModal({ tasks }) {
                     Edit Item
                   </Modal.Heading>
                   <p className="text-sm text-default-500 mt-1">
-                    Update the title, description, and status.
+                    Update the status.
                   </p>
                 </div>
               </div>
@@ -103,30 +93,34 @@ export function UpdateModal({ tasks }) {
                 variant="default"
                 className="rounded-none bg-transparent shadow-none"
               >
-                <form id="update-form" className="space-y-6 p-8" onSubmit={onSubmit}>
+                <form
+                  id="update-form"
+                  className="space-y-6 p-8"
+                  onSubmit={onSubmit}
+                >
                   <div className="space-y-6">
-                    
-                   
-
-                    {/* 2. Status Field */}
                     <div>
                       <Select
-                        defaultValue={status}
-                        name="status"
-                        isRequired
+                        value={selectedStatus}
+                        onChange={setSelectedStatus}
                         className="w-full"
-                        placeholder="Select status"
                       >
                         <Label>Status</Label>
-                        <Select.Trigger className="rounded-2xl">
+
+                        <Select.Trigger>
                           <Select.Value />
                           <Select.Indicator />
                         </Select.Trigger>
+
                         <Select.Popover>
                           <ListBox>
-                            {statuses.map((s) => (
-                              <ListBox.Item key={s} id={s} textValue={s}>
-                                {s}
+                            {statuses.map((status) => (
+                              <ListBox.Item
+                                key={status.value}
+                                id={status.value}
+                                textValue={status.label}
+                              >
+                                {status.label}
                                 <ListBox.ItemIndicator />
                               </ListBox.Item>
                             ))}
@@ -134,9 +128,6 @@ export function UpdateModal({ tasks }) {
                         </Select.Popover>
                       </Select>
                     </div>
-
-                   
-
                   </div>
                 </form>
               </Surface>
@@ -144,11 +135,7 @@ export function UpdateModal({ tasks }) {
 
             <Modal.Footer className="border-t border-default-100 px-8 py-5">
               <div className="flex w-full justify-end gap-3">
-                <Button
-                  slot="close"
-                  variant="secondary"
-                  className="rounded-xl"
-                >
+                <Button slot="close" variant="secondary" className="rounded-xl">
                   Cancel
                 </Button>
 
