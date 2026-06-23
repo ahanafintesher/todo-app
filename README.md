@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A simple and clean full-stack Todo application where you can manage your daily tasks efficiently.
 
-## Getting Started
+🔗 Live Site: https://todo-app-snowy-nine-74.vercel.app/
 
-First, run the development server:
+🔗 Server: https://todo-app-server-peach.vercel.app/
 
-```bash
+✨ Features
+
+➕ Add Task — Create new tasks quickly and easily
+
+🗑️ Delete Task — Remove tasks that are no longer needed
+
+✏️ Edit Task Status — Update the status of your tasks
+
+📋 Show All Tasks — View all your tasks in one place
+
+🛠️ Tech Stack
+
+🖥️ Frontend
+
+Technology	Description
+
+Next.js	React framework for production
+
+React.js	JavaScript UI library
+
+HeroUI	Modern UI component library
+
+Tailwind CSS	Utility-first CSS framework
+
+React Hot Toast	Lightweight toast notifications
+
+Gravity UI Icons	Icon library
+
+⚙️ Backend
+
+Technology	Description
+
+Node.js	JavaScript runtime environment
+
+Express.js	Fast and minimal web framework
+
+MongoDB	NoSQL database
+
+dotenv	Environment variable management
+
+CORS	Cross-origin resource sharing
+
+📁 GitHub Repositories
+
+🖥️ Client: https://github.com/ahanafintesher/todo-app
+
+⚙️ Server: https://github.com/ahanafintesher/todo-app-server
+
+🚀 How to Run Locally
+
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js (v18 or higher)
+
+MongoDB or a MongoDB Atlas account
+
+Git
+
+🖥️ Frontend Setup
+
+Bash
+
+# Clone the repository
+
+git clone https://github.com/ahanafintesher/todo-app.git
+
+# Navigate to the project directory
+
+cd todo-app
+
+# Install dependencies
+
+npm install
+
+# Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+⚙️ Backend Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Bash
 
-## Learn More
+# Clone the repository
 
-To learn more about Next.js, take a look at the following resources:
+git clone https://github.com/ahanafintesher/todo-app-server.git
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Navigate to the project directory
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+cd todo-app-server
 
-## Deploy on Vercel
+# Install dependencies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create a .env file in the root of the server directory and add the following:
+
+env
+
+PORT=5000
+
+MONGODB_URI=your_mongodb_connection_string
+
+Bash
+
+# Start the server
+
+node index.js
+
+The server will run on http://localhost:5000.
+
+📬 Contact
+
+Made with ❤️ by Ahanaf Intesher
+
+
+
