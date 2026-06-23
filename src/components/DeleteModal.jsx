@@ -15,7 +15,7 @@ const handleDelete = async () => {
    
 
     const res = await fetch(
-      `http://localhost:5000/api/tasks/${_id}`,
+      `https://todo-app-server-peach.vercel.app/api/tasks/${_id}`,
       {
         method: "DELETE",
         headers: {

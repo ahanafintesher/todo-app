@@ -30,7 +30,7 @@ export function UpdateModal({ task }) {
     console.log(dataToSend);
 
     try {
-      const promise = fetch(`http://localhost:5000/api/tasks/${_id}`, {
+      const promise = fetch(`https://todo-app-server-peach.vercel.app/api/tasks/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
